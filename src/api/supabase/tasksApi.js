@@ -1,7 +1,7 @@
 import { supabase } from "@/api/supabase/index"
 
 
-export const getAllTask = async ()=> {
+export const getAllTasks = async ()=> {
     try{
         const { data, error } = await supabase
         .from('task')
@@ -19,7 +19,8 @@ export const getAllTask = async ()=> {
 
 export const addTask = async ()=> {
     try{
-        const user_id = (await supabase.auth.getUser()).data.user.uuid
+        const user = await supabase.auth.getUser();
+        const user_id = user.data.user.id
         const { data, error } = await supabase
         .from('task')
         .insert({ titulo, descripcion, user_id })
@@ -34,12 +35,12 @@ export const addTask = async ()=> {
         return [];
     }
 }
-export const editTask = async ()=> {
+export const editTask = async (id, titulo, descripcion)=> {
     try{
         const { data, error } = await supabase
         .from('task')
-        .update({ titulo, descripcion })
-        .eq('id')
+        .update({ id, titulo, descripcion })
+        .eq('id', id)
         .select()
         if (error) {
             throw new Error(error.message)
@@ -47,11 +48,12 @@ export const editTask = async ()=> {
         return data
     }
     catch (err){
-        console.log(err)
+        console.log(err);
+        return null;
     }
 }
 
-export const deletTask = async ()=> {
+export const deleteTask = async (id)=> {
     try{
         const response = await supabase
         .from('task')

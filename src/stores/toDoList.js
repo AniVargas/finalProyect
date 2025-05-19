@@ -1,15 +1,15 @@
 import { defineStore } from 'pinia'
 import { ref, computed, reactive } from 'vue'
-import { getAllTask , addTask } from '@/api/supabase/tasksApi'
+import { getAllTasks , addTask } from '@/api/supabase/tasksApi'
 
 export const usetoDoList = defineStore('tasks', ()=>{
   
-  const tasks = reactive ([])
+  const tasks = ref([])
 
   async function fetchTasks (){
     try {
-      const data = await getAllTask()
-      tasks.push(...data)
+      const data = await getAllTasks();
+      tasks.value.push(...data)
     }
     catch (err){
       console.log (err)
@@ -19,7 +19,7 @@ export const usetoDoList = defineStore('tasks', ()=>{
   async function createTask (titulo, descripcion){
     try {
       const data = await addTask(titulo, descripcion)
-      tasks.push(data)
+      tasks.value.push(data)
     }
     catch (err){
       console.log (err)

@@ -49,27 +49,26 @@ onMounted(()=>{
                 
 
                 <label for="status">Status</label>
-                <select name="status" id="staus">
+                <select name="status" id="status">
                     <option value="todo">To do</option>
                     <option value="doing">Doing</option>
                     <option value="done">Done</option>
                 </select>
-                    <input type="submit" value="Enviar" />
-                <button @submit.prevent="handleSubmit" type="submit">Add</button>
+                <button type="submit">Add</button>
             </form> 
     </section>        
 
     <article>
         <section>
             <h3>To do</h3>
-            <ul v-for="task in tasks" :key="task.id">
+            <li v-for="task in tasks.filter(t => t.status === 'todo')" :key="task.id">
                 <div class="tareas">
                     <h4>{{ task.titulo }}</h4>
                     <p>{{ task.descripcion }}</p>
                     <caption>Due date</caption>
                     <form action="#">
                         <label for="status">Status</label>
-                        <select name="status" id="staus">
+                        <select name="status" id="status">
                             <option value="todo">To do</option>
                             <option value="doing">Doing</option>
                             <option value="done">Done</option>
@@ -78,7 +77,7 @@ onMounted(()=>{
                     </form>
                     <button class="editar">edit</button>
                 </div>
-            </ul>
+            </li>
         </section>
         <section>
             <h3>Doing</h3>

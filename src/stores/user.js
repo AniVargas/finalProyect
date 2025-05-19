@@ -38,7 +38,7 @@ export const useUserStore = defineStore('user', ()=>{
     }
     else {
       user.value = data.user;
-      console.log (user.value)} 
+      console.log (user.value.id)} 
     }
 
     async function logout() {    
