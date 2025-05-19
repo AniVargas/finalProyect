@@ -19,14 +19,15 @@ export const getAllTask = async ()=> {
 
 export const addTask = async ()=> {
     try{
+        const user_id = (await supabase.auth.getUser()).data.user.uuid
         const { data, error } = await supabase
-        .from('tasks')
-        .insert({ titulo, descripcion })
+        .from('task')
+        .insert({ titulo, descripcion, user_id })
         .select()
         if (error) {
             throw new Error(error.message)
         }
-        return data
+        return data[0]
     }
     catch (err){
         console.log(err)
@@ -36,7 +37,7 @@ export const addTask = async ()=> {
 export const editTask = async ()=> {
     try{
         const { data, error } = await supabase
-        .from('tasks')
+        .from('task')
         .update({ titulo, descripcion })
         .eq('id')
         .select()
@@ -53,7 +54,7 @@ export const editTask = async ()=> {
 export const deletTask = async ()=> {
     try{
         const response = await supabase
-        .from('tasks')
+        .from('task')
         .delete()
         .eq('id')
         if (error) {

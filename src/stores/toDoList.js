@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed, reactive } from 'vue'
-import { getAllTask , addTask, editTask, deletTask } from '@/api/supabase/tasksApi'
+import { getAllTask , addTask } from '@/api/supabase/tasksApi'
 
 export const usetoDoList = defineStore('tasks', ()=>{
   
@@ -16,7 +16,7 @@ export const usetoDoList = defineStore('tasks', ()=>{
     }
   }
 
-  async function createTask (titulo, descripcion, estado){
+  async function createTask (titulo, descripcion){
     try {
       const data = await addTask(titulo, descripcion)
       tasks.push(data)
