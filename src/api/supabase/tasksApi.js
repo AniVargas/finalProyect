@@ -28,7 +28,7 @@ export const addTask = async ()=> {
         if (error) {
             throw new Error(error.message)
         }
-        return data[0]
+        return data
     }
     catch (err){
         console.log(err)

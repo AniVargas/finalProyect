@@ -16,9 +16,9 @@ export const usetoDoList = defineStore('tasks', ()=>{
     }
   }
 
-  async function createTask (titulo, descripcion){
+  async function createTask (){
     try {
-      const data = await addTask(titulo, descripcion)
+      const data = await addTask(titulo.value, descripcion.value)
       tasks.value.push(data)
     }
     catch (err){

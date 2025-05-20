@@ -15,12 +15,13 @@ const titulo = ref ('')
 const descripcion = ref ('')
 
 const handleSubmit = async () => {
-    try {
+        try {
         await toDoListStore.createTask(titulo.value, descripcion.value)
         
     } catch (error) {
         console.error
-    }
+    };
+    console.log(titulo.value)
 }
 
 onMounted(()=>{
@@ -61,7 +62,7 @@ onMounted(()=>{
     <article>
         <section>
             <h3>To do</h3>
-            <li v-for="task in tasks.filter(t => t.status === 'todo')" :key="task.id">
+            <li v-for="task in tasks" :key="task.id">
                 <div class="tareas">
                     <h4>{{ task.titulo }}</h4>
                     <p>{{ task.descripcion }}</p>
