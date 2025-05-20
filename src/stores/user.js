@@ -14,7 +14,7 @@ export const useUserStore = defineStore('user', ()=>{
         user.value = data.user
       }
     }
-
+  
   async function signUp (email, password) {
       const { data, error } = await supabase.auth.signUp({
         email: email,
@@ -38,7 +38,7 @@ export const useUserStore = defineStore('user', ()=>{
     }
     else {
       user.value = data.user;
-      console.log (user.value)} 
+      console.log (user.value.id)} 
     }
 
     async function logout() {    
@@ -50,6 +50,7 @@ export const useUserStore = defineStore('user', ()=>{
         user.value = null
         console.log ("you have log out")
       }
+
   }
   return {
     user,
