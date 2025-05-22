@@ -1,6 +1,6 @@
 <script setup>
 import {useUserStore} from '@/stores/user'
-import {ref, onMounted} from 'vue' 
+import {ref, onMounted, watch} from 'vue' 
 import {storeToRefs} from 'pinia'
 import {usetoDoList} from '@/stores/toDoList'
 
@@ -10,22 +10,35 @@ const toDoListStore= usetoDoList()
 const {user} = storeToRefs(userStore)
 const {tasks} = storeToRefs(toDoListStore)
 
-
 const titulo = ref ('')
 const descripcion = ref ('')
+const status = ref('todo')
+
 
 const handleSubmit = async () => {
-        try {
-        await toDoListStore.createTask(titulo.value, descripcion.value)
-        
-    } catch (error) {
-        console.error
-    };
-    console.log(titulo.value)
+  try {
+    await toDoListStore.createTask(titulo.value, descripcion.value, status.value)
+    titulo.value = ''
+    descripcion.value = ''
+    status.value = 'todo'
+  } catch (error) {
+    console.error(error)
+  }
 }
 
+const handleDelete = async ()=> {
+    try
+}
+
+const changeStatus = async (id, newStatus) => {
+    await toDoListStore.changeStatus (id, newStatus)
+}
+
+
 onMounted(()=>{
-    toDoListStore.fetchTasks()
+    toDoListStore.fetchTasks(),
+    userStore.fetchUser()
+
 }
 )
 
@@ -47,14 +60,7 @@ onMounted(()=>{
 
                 <label for="descripcion">descripción</label>
                 <input type="textarea" id="descripcion" v-model="descripcion"><br><br>
-                
 
-                <label for="status">Status</label>
-                <select name="status" id="status">
-                    <option value="todo">To do</option>
-                    <option value="doing">Doing</option>
-                    <option value="done">Done</option>
-                </select>
                 <button type="submit">Add</button>
             </form> 
     </section>        
@@ -62,19 +68,18 @@ onMounted(()=>{
     <article>
         <section>
             <h3>To do</h3>
-            <li v-for="task in tasks" :key="task.id">
+            <li v-for="task in tasks.filter(t=>t.status==='todo')" :key="task.id">
                 <div class="tareas">
                     <h4>{{ task.titulo }}</h4>
                     <p>{{ task.descripcion }}</p>
                     <caption>Due date</caption>
-                    <form action="#">
+                    <form>
                         <label for="status">Status</label>
-                        <select name="status" id="status">
+                        <select :value="task.status" @change="e => changeStatus(task.id, e.target.value)">
                             <option value="todo">To do</option>
                             <option value="doing">Doing</option>
                             <option value="done">Done</option>
                         </select>
-                        <input type="submit" value="Enviar" />
                     </form>
                     <button class="editar">edit</button>
                 </div>
@@ -82,40 +87,44 @@ onMounted(()=>{
         </section>
         <section>
             <h3>Doing</h3>
-            <div class="tareas">
-                <h4>titulo de tarea</h4>
-                <p>Descripción</p>
-                <caption>Due date</caption>
-                <form action="#">
-                    <label for="status">Status</label>
-                    <select name="status" id="staus">
-                        <option value="todo">To do</option>
-                        <option value="doing">Doing</option>
-                        <option value="done">Done</option>
-                    </select>
-                    <input type="submit" value="Enviar" />
-                </form>
-                <button class="editar">edit</button>
-            </div>
+            <li v-for="task in tasks.filter(t=>t.status==='doing')" :key="task.id">
+                <div class="tareas">
+                    <h4>{{ task.titulo }}</h4>
+                    <p>{{ task.descripcion }}</p>
+                    <caption>Due date</caption>
+                    <form>
+                        <label for="status">Status</label>
+                        <select :value="task.status" @change="e => changeStatus(task.id, e.target.value)">
+                            <option value="todo">To do</option>
+                            <option value="doing">Doing</option>
+                            <option value="done">Done</option>
+                        </select>
+                    </form>
+                    <button class="editar">edit</button>
+                </div>
+            </li>
         </section>
         <section>
             <h3>Done</h3>
-            <div class="tareas">
-                <h4>titulo de tarea</h4>
-                <p>Descripción</p>
-                <caption>Due date</caption>
-                <form action="#">
-                    <label for="status">Status</label>
-                    <select name="status" id="staus">
-                        <option value="todo">To do</option>
-                        <option value="doing">Doing</option>
-                        <option value="done">Done</option>
-                    </select>
-                    <input type="submit" value="Enviar" />
-                </form>
-                <button class="editar">edit</button>
-            </div>
+            <li v-for="task in tasks.filter(t=>t.status==='done')" :key="task.id">
+                <div class="tareas">
+                    <h4>{{ task.titulo }}</h4>
+                    <p>{{ task.descripcion }}</p>
+                    <caption>Due date</caption>
+                    <form>
+                        <label for="status">Status</label>
+                        <select :value="task.status" @change="e => changeStatus(task.id, e.target.value)">
+                            <option value="todo">To do</option>
+                            <option value="doing">Doing</option>
+                            <option value="done">Done</option>
+                        </select>
+                    </form>
+                    <button class="editar">✍️</button>
+                    <button @click.prevent="handleDelete" class="delete">🗑️</button>
+                </div>
+            </li>
         </section>
+        
     </article>
 </template>
 
@@ -123,6 +132,9 @@ onMounted(()=>{
 article{
     display: flex;
     justify-content: space-between; 
+}
+li{
+    list-style: none;
 }
 
 </style>

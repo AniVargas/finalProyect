@@ -4,14 +4,14 @@ import { supabase } from '@/api/supabase/index.js'
 
 export const useUserStore = defineStore('user', ()=>{
   
-  const user = ref (null)
-
+  const user = ref(null)
+  
   async function fetchUser () {
       const { data, error } = await supabase.auth.getUser();
       if (error) {
         console.error('Error fetching user:', error)
       } else {
-        user.value = data.user
+        user.value = data?.user ?? null
       }
     }
   
@@ -49,7 +49,7 @@ export const useUserStore = defineStore('user', ()=>{
       else {
         user.value = null
         console.log ("you have log out")
-      }
+      }  
 
   }
   return {
@@ -57,6 +57,6 @@ export const useUserStore = defineStore('user', ()=>{
     fetchUser,
     signUp,
     logIn,
-    logout
+    logout, 
   }
 })
