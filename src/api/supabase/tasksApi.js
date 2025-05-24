@@ -33,30 +33,48 @@ export const addTask = async (titulo, descripcion, status = 'todo') => {
   }
 }
 
-
-export const editTask = async (id, titulo, descripcion, newStatus) => {
+export const editTaskStatus = async (id, newStatus) => {
   try {
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from('task')
-      .update({ titulo, descripcion, status: newStatus, dueDate })
+      .update({ status: newStatus })
       .eq('id', id)
       .select()
 
     if (error) throw error
-  }
-    catch (err) {
+
+    return data
+  } catch (err) {
     console.error('Error al editar tarea:', err.message)
     return null
   }
 }
 
-// Eliminar una tarea
+export const editTask = async (id, newTitulo, newDescripcion) => {
+  try {
+    const { data, error } = await supabase
+      .from('task')
+      .update({ 
+        titulo: newTitulo,
+        descripcion: newDescripcion })
+      .eq('id', id)
+      .select()
+
+    if (error) throw error
+
+    return data
+  } catch (err) {
+    console.error('Error al editar tarea:', err.message)
+    return null
+  }
+}
 export const deleteTask = async (id) => {
   try {
     const { data, error } = await supabase
       .from('task')
       .delete()
       .eq('id', id)
+      .select ()
 
     if (error) throw error
     return data
