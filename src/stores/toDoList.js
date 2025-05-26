@@ -9,17 +9,18 @@ export const usetoDoList = defineStore('tasks', ()=>{
   async function fetchTasks (){
     try {
       const data = await getAllTasks();
-      tasks.value.push(...data)
-    }
-    catch (err){
+      tasks.value = data
+    } catch (err){
       console.log (err)
     }
   }
 
   async function createTask(titulo, descripcion, status = 'todo', dueDate) {
     try {
-      const nuevaTarea = await addTask(titulo, descripcion, status)
-      tasks.value.push(nuevaTarea)
+      const nuevaTarea = await addTask(titulo, descripcion, status, dueDate)
+      if(nuevaTarea){
+        tasks.value.push(nuevaTarea)
+      }
     } catch (err) {
       console.error('Error al crear tarea:', err)
     }
@@ -35,16 +36,18 @@ export const usetoDoList = defineStore('tasks', ()=>{
     }
   }
 
-  async function modifyTask(id, newTitulo, newDescripcion) {
+  async function modifyTask(id, newTitulo, newDescripcion, newDueDate) {
     try {
-      await editTask(id, newTitulo, newDescripcion)
+      await editTask(id, newTitulo, newDescripcion, newDueDate)
       const task = tasks.value.find(t => t.id === id)
-      if (task) 
+      if (task) { 
         task.titulo = newTitulo
-        tasks.descripcion= newDescripcion
+        task.descripcion = newDescripcion
+        task.dueDate = newDueDate
+      }
 
     } catch (err) {
-      console.error('Error al cambiar el estado:', err)
+      console.error('Error al editar:', err)
     }
   }
 
@@ -65,7 +68,7 @@ export const usetoDoList = defineStore('tasks', ()=>{
     fetchTasks, 
     changeStatus, 
     delTask,
-    modifyTask,
+    modifyTask, 
    }
 
 })

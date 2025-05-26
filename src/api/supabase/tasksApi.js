@@ -14,7 +14,7 @@ export const getAllTasks = async () => {
   }
 }
 
-export const addTask = async (titulo, descripcion, status = 'todo') => {
+export const addTask = async (titulo, descripcion, status = 'todo', dueDate) => {
   try {
     const {
       data: { user }
@@ -22,7 +22,7 @@ export const addTask = async (titulo, descripcion, status = 'todo') => {
 
     const { data, error } = await supabase
       .from('task')
-      .insert([{ titulo, descripcion, status, user_id: user.id }])
+      .insert([{ titulo, descripcion, status, dueDate, user_id: user.id }])
       .select()
     
     if (error) throw error
@@ -50,13 +50,15 @@ export const editTaskStatus = async (id, newStatus) => {
   }
 }
 
-export const editTask = async (id, newTitulo, newDescripcion) => {
+export const editTask = async (id, newTitulo, newDescripcion, newDueDate) => {
   try {
     const { data, error } = await supabase
       .from('task')
       .update({ 
         titulo: newTitulo,
-        descripcion: newDescripcion })
+        descripcion: newDescripcion,
+        dueDate: newDueDate,
+       })
       .eq('id', id)
       .select()
 
