@@ -90,10 +90,7 @@ const toggleEdit = async (task) =>{
 </script>
 
 <template>
-      <div v-if="user">
-        <h4> Hi {{ user.email }}!! </h4>
-        <button @click="userStore.logout" type="button">Log out</button>
-      </div>
+
     <button @click="toggleShow"> Add new task </button>
     <section :class="noShow">
             <h3>New Task</h3>

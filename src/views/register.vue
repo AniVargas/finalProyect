@@ -15,23 +15,16 @@ const password2 = ref("")
 const noShowDifPasswords = ref ('noShowDifPasswords')
 const error = ref("")
 
-//const toggleShowDifPasswords =()=>{
-//    if (noShowDifPasswords.value === 'noShowDifPasswords'){
-//        noShowDifPasswords.value = ''
-//    } else {
-//        noShowDifPasswords.value ='noShowDifPasswords'
-//    }
-//}
-
 
 async function verifyAndRegister () {
     noShowDifPasswords.value ='noShowDifPasswords'
     error.value= ""
     if (password1.value === password2.value){
         password.value = password1.value
-        
         try{
         await userStore.signUp (email.value, password.value)
+        router.push('/todo')
+
         } catch (err){
             error.value = "You alreday have a user, try login"
             console.log (err)

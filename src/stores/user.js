@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { supabase } from '@/api/supabase/index.js'
 
+
 export const useUserStore = defineStore('user', ()=>{
   
   const user = ref(null)
