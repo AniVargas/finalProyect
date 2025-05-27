@@ -140,7 +140,7 @@ const toggleEdit = async (task) =>{
         <section>
             <h3>Doing</h3>
             <li v-for="task in tasks.filter(t=>t.status==='doing')" :key="task.id">
-                <div class="tareas">
+                <div v-if="user" class="tareas">
                     <h4>{{ task.titulo }}</h4>
                     <p>{{ task.descripcion }}</p>
                     <p>{{task.dueDate}}</p>
@@ -159,7 +159,7 @@ const toggleEdit = async (task) =>{
         <section>
             <h3>Done</h3>
             <li v-for="task in tasks.filter(t=>t.status==='done')" :key="task.id">
-                <div class="tareas">
+                <div v-if="user" class="tareas">
                     <h4>{{ task.titulo }}</h4>
                     <p>{{ task.descripcion }}</p>
                     <p>{{task.dueDate}}</p>

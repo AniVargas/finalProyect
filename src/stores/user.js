@@ -20,12 +20,13 @@ export const useUserStore = defineStore('user', ()=>{
         email: email,
         password: password,
       });
-      if (error) {
-        console.error('Error de registro', error)
-      }
+      if (error)  throw error
       else {
         user.value = data.user;
-        console.log (user.value)}
+        console.log (user.value);
+      }
+       
+      
     }
 
   async function logIn (email, password) { 
@@ -33,12 +34,11 @@ export const useUserStore = defineStore('user', ()=>{
       email: email,
       password: password,
     }) 
-    if (error) {
-      console.error('Error al iniciar sesión', error)
-    }
+    if (error)  throw error
     else {
       user.value = data.user;
-      console.log (user.value.id)} 
+      console.log (user.value.id);
+    } 
     }
 
     async function logout() {    
