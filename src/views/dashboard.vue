@@ -20,6 +20,12 @@ const noShowEdit = ref ('noShow')
 const newTitulo = ref ('')
 const newDescripcion = ref ('')
 const newDueDate = ref ('')
+const today = ref (new Date())
+const anio = ref(today.value.getFullYear());
+const mes = ref(today.value.getMonth() + 1); 
+const dia = ref(today.value.getDate());
+const hoy = ref(`${anio.value}-${String(mes.value).padStart(2, '0')}-${String(dia.value).padStart(2, '0')}`);
+
 
 // handle newtask, delete, status, update, fecth
 const handleSubmit = async () => {
@@ -91,8 +97,9 @@ const toggleEdit = async (task) =>{
 
 <template>
 
-    <button @click="toggleShow"> Add new task </button>
     <section :class="noShow">
+        <div class="transparente">
+          <div class="insert">  
             <h3>New Task</h3>
             <form @submit.prevent="handleSubmit">
                 <input type="text" id="titulo" placeholder="New task title" v-model="titulo" required><br><br>
@@ -100,28 +107,36 @@ const toggleEdit = async (task) =>{
                 <input type="date" id="dueDate" v-model="dueDate"><br><br>
                 <button type="submit">Add</button>
             </form> 
+           </div>
+        </div>
     </section>        
 
     <section :class="noShowEdit">
-            <h3>Edit Task</h3>
-            <form @submit.prevent="updateTask(editingTaskId, newTitulo, newDescripcion, newDueDate) ">
-                <input type="text" id="titulo" v-model="newTitulo" required><br><br>
-                <input type="textarea" id="descripcion" v-model="newDescripcion"><br><br>
-                <input type="date" id="dueDate" v-model="newDueDate"><br><br>
+        <div class="transparente">
+            <div class="insert">
+                <h3>Edit Task</h3>
+                <form @submit.prevent="updateTask(editingTaskId, newTitulo, newDescripcion, newDueDate) ">
+                    <input type="text" id="titulo" v-model="newTitulo" required><br><br>
+                    <input type="textarea" id="descripcion" v-model="newDescripcion"><br><br>
+                    <input type="date" id="dueDate" v-model="newDueDate"><br><br>
 
-                <button type="submit">Save</button>
-            </form> 
+                    <button type="submit">Save</button>
+                </form> 
+            </div>
+        </div>
     </section>        
 
-
-    <article>
-        <section>
+    
+    <button @click="toggleShow" class="add"> + </button>  
+    <main>
+    <article>  
+        <section class="lista">
             <h3>To do</h3>
             <li v-for="task in tasks.filter(t=>t.status==='todo')" :key="task.id">
                 <div v-if="user" class="tareas">
                     <h4>{{ task.titulo }}</h4>
                     <p>{{ task.descripcion }}</p>
-                    <p>{{task.dueDate}}</p>
+                    <p :class="{ deadline: task.dueDate === hoy }">{{task.dueDate}}</p>
                     <form>
                         <select v-model="task.status" @change="e => changeStatus(task.id, e.target.value)">
                             <option value="todo">To do</option>
@@ -134,13 +149,13 @@ const toggleEdit = async (task) =>{
                 </div>
             </li>
         </section>
-        <section>
+        <section class="lista">
             <h3>Doing</h3>
             <li v-for="task in tasks.filter(t=>t.status==='doing')" :key="task.id">
                 <div v-if="user" class="tareas">
                     <h4>{{ task.titulo }}</h4>
                     <p>{{ task.descripcion }}</p>
-                    <p>{{task.dueDate}}</p>
+                    <p :class="{ deadline: task.dueDate === hoy }">{{task.dueDate}}</p>
                     <form>
                         <select v-model="task.status" @change="e => changeStatus(task.id, e.target.value)">
                             <option value="todo">To do</option>
@@ -153,13 +168,13 @@ const toggleEdit = async (task) =>{
                 </div>
             </li>
         </section>
-        <section>
+        <section class="lista">
             <h3>Done</h3>
-            <li v-for="task in tasks.filter(t=>t.status==='done')" :key="task.id">
+            <li class="done" v-for="task in tasks.filter(t=>t.status==='done')" :key="task.id">
                 <div v-if="user" class="tareas">
                     <h4>{{ task.titulo }}</h4>
                     <p>{{ task.descripcion }}</p>
-                    <p>{{task.dueDate}}</p>
+                    <p :class="{ deadline: task.dueDate === hoy }">{{task.dueDate}}</p>
                     <form>
                         <select v-model="task.status" @change="e => changeStatus(task.id, e.target.value)">
                             <option value="todo">To do</option>
@@ -174,12 +189,17 @@ const toggleEdit = async (task) =>{
         </section>
         
     </article>
+    </main>
 </template>
 
 <style>
+
 article{
+    width: 90vw;
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-around;
+    margin: auto;
+    font-family: monospace;
 }
 li{
     list-style: none;
@@ -191,4 +211,100 @@ li{
 .noShowEdit {
     display: none;
 }
+.lista{
+    width: 25vw;
+    border-radius: 10px;
+    h3{
+        margin-top: 0;
+        border: 5px solid black;
+        font-size: 30px;
+        font-family: monospace;
+        text-align: center;
+        background-color:#fa448c;
+        color: white ;
+    }
+    .tareas{
+        justify-self: center;
+        background-color:#331a380f;
+        width: 90%;
+        border-radius: 5px;
+        
+        
+        button{
+            color: white;
+            border: none;
+            height: 30px;
+            border-radius: 5px;
+            width: 30px;
+            margin: 2px;
+        }
+        button:hover{
+            background-color:#491d88;
+        }
+        select{
+            border: 2px solid black;
+            font-family: monospace; 
+        }
+    }
+}
+
+.done{
+    text-decoration: line-through;
+    color: rgb(80, 77, 77);
+        select{
+            color: rgb(80, 77, 77);
+        }
+}
+.add{
+    margin-top: 50px;
+    width: 70px;
+    height: 70px;
+    border-radius: 100px;
+    border: none;
+    background-color: #fec859;
+    border: 5px solid black;
+    font-size: 50px;
+    color: black;
+    position: fixed;
+}
+.add:hover{
+    background-color: #ffac06;
+}
+
+.transparente{
+    width: 100%;
+    height: 100vh;
+    background-color: #ffffff4f;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    .insert{
+        margin-top: 100px;
+        width: 300px;
+        height: 250px;
+        background-color: white;
+        border: 5px solid black;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        font-family: monospace;
+        button{
+            font-family: monospace;
+            color: white;
+            background-color: #491d88;
+            border: none;
+            height: 30px;
+            border-radius: 10px;
+            width: 80px;
+
+        }
+   
+    }
+}
+.deadline{
+    color: red  ;
+}
+
+
 </style>

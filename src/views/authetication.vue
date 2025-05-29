@@ -26,25 +26,88 @@ const handleLogin = async ()=> {
 
 </script>
 <template>
-  <div>
-    <p v-if="error">{{ error }}</p>
-  </div>
-    <div>
+
+    <section>
+      <div>
+        <div v-if="error" class="pink">
+          <p>{{ error }}</p>
+        </div>
+        <div class="pink" v-if="user">
+          <p>Hi! you are loged as {{ user.email }}!</p>
+          <router-link to="todo">Let's get started</router-link>
+        </div>
       <form @submit.prevent="handleLogin">
-        <label for="email">Email:</label>
+        <label for="email">Email:</label><br>
         <input type="text" id="email" v-model="email" required><br><br>
        
-        <label for="password">Contraseña:</label>
+        <label for="password">Contraseña:</label><br>
         <input type="password" id="password" v-model="password" required><br><br>
   
         <button type="submit">Log in</button>
       </form>
-  
-      <div v-if="user">
-         <h3>Hi {{ user.email }}!</h3>
-         <router-link to="todo">Let's get started</router-link>
-        <button @click="userStore.logout" type="button">Cerrar Sesión</button>
       </div>
-    </div>
+    </section>
   </template>
+
+
+
+<style scoped>
+
+button{
+    background-color: #491d88;
+    padding-bottom: 10px;
+    color: black;
+    border: none;
+    border-radius: 10px;
+    width: 130px;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 10wv;
+}
+button:hover{
+    width: 135px;
+    font-size: 20px;
+    background-color:#6b499b;
+}
+
+section{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  div{
+  width: 300px;
+  align-self: center;
+  
+  form{
+    margin-top: 20px;
+    font-family:monospace;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    input{
+      border-radius: 0%;
+      border: 3px solid black;
+      font-family: monospace;
+      height: 30px;
+    }
+    button{
+      height: 50px;
+      align-self: center;
+    }
+  }
+}
+}
+.pink{
+  border:5px solid black;
+  background-color: #fa448c;
+  font-family: monospace;
+  text-align: center;
+}
+
+
+</style>
   
