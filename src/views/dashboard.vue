@@ -347,6 +347,11 @@ li{
     margin-top: 10px;
  }
 
+ .add{
+    top: 1vw;
+    right: 1vw;
+ }
+
  article{
     width: 90vw;
     display: flex;
