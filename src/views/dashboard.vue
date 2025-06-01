@@ -122,6 +122,7 @@ const toggleEdit = async (task) =>{
 </script>
 
 <template>
+     <button @click="toggleShow" class="add"> + </button>
 <main>
     <section :class="noShow">
         <div class="transparente">
@@ -149,10 +150,7 @@ const toggleEdit = async (task) =>{
                 </form> 
             </div>
         </div>
-    </section>        
-    
-    <button @click="toggleShow" class="add"> + </button>  
-    
+    </section>          
     <article>  
         <section class="lista">
             <h3>To do <button @click.prevent="toogleShowToDo">-</button> </h3>
