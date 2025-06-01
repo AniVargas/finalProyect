@@ -126,7 +126,8 @@ const toggleEdit = async (task) =>{
 <main>
     <section :class="noShow">
         <div class="transparente">
-          <div class="insert">  
+          <div class="insert">
+            <button class="close" @click="toggleShow">X</button>  
             <h3>New Task</h3>
             <form @submit.prevent="handleSubmit">
                 <input type="text" id="titulo" placeholder="New task title" v-model="titulo" required><br><br>
@@ -140,6 +141,7 @@ const toggleEdit = async (task) =>{
     <section :class="noShowEdit">
         <div class="transparente">
             <div class="insert">
+                <button class="close" @click="toggleEdit">X</button>  
                 <h3>Edit Task</h3>
                 <form @submit.prevent="updateTask(editingTaskId, newTitulo, newDescripcion, newDueDate) ">
                     <input type="text" id="titulo" v-model="newTitulo" required><br><br>
@@ -153,7 +155,7 @@ const toggleEdit = async (task) =>{
     </section>          
     <article>  
         <section class="lista">
-            <h3>To do <button @click.prevent="toogleShowToDo">-</button> </h3>
+            <h3>To do <button @click.prevent="toogleShowToDo">+</button> </h3>
             <li v-for="task in tasks.filter(t=>t.status==='todo')" :key="task.id":class="showToDo">
                 <div v-if="user" class="tareas">
                     <h4>{{ task.titulo }}</h4>
@@ -172,7 +174,7 @@ const toggleEdit = async (task) =>{
             </li>
         </section>
         <section class="lista">
-            <h3>Doing <button class="botonMostrarTasks" @click.prevent="toogleShowDoing">-</button> </h3>
+            <h3>Doing <button class="botonMostrarTasks" @click.prevent="toogleShowDoing">+</button> </h3>
             <li v-for="task in tasks.filter(t=>t.status==='doing')" :key="task.id" :class="showDoing">
                 <div  v-if="user" class="tareas">
                     <h4>{{ task.titulo }}</h4>
@@ -191,7 +193,7 @@ const toggleEdit = async (task) =>{
             </li>
         </section>
         <section class="lista">
-            <h3>Done <button @click.prevent="toogleShowDone">-</button> </h3>
+            <h3>Done <button @click.prevent="toogleShowDone">+</button></h3>
             <li class="done" v-for="task in tasks.filter(t=>t.status==='done')" :key="task.id" :class="showDone">
                 <div v-if="user" class="tareas">
                     <h4>{{ task.titulo }}</h4>
@@ -211,13 +213,13 @@ const toggleEdit = async (task) =>{
         </section>
         
     </article>
-    </main>
+</main>
 </template>
 
 <style>
 @media (max-width: 1450px){
 main{
-    margin-top: 40px;
+    margin-top: 45px;
 }
 article{
     width: 90vw;
@@ -255,8 +257,6 @@ li{
         background-color:#331a380f;
         width: 90%;
         border-radius: 5px;
-        
-        
         button{
             color: white;
             border: none;
@@ -325,10 +325,19 @@ li{
             height: 30px;
             border-radius: 10px;
             width: 80px;
+        }  
+        .close{
+            border: none;
+            background-color: #00000000;
+            color: black;
+            align-self: flex-end;
+            width: 30px;
 
         }
    
     }
+
+
 }
 .deadline{
     color: rgb(255, 0, 0)  ;
@@ -344,11 +353,11 @@ li{
 
 @media (max-width: 770px){
  main{
-    margin-top: 10px;
+    margin-top: 20px;
  }
 
  .add{
-    width: 70px;
+    width: 50px;
     height: 70px;    
     top: 80vw;
     left: 80vw;
@@ -371,7 +380,12 @@ li{
         background-color:#fa448c;
         color: white ;
         button{
-            display: block;
+            display:block;
+            border: none;
+            background-color: #fd66a3;
+            color: white;
+            font-size: 20px;
+            justify-self: end;
         }
     }
 }
