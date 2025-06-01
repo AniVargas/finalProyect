@@ -13,12 +13,9 @@ const {user} = storeToRefs(userStore)
 <template>
 <navbar/>
    
-<RouterView class="content"></RouterView>
+<RouterView ></RouterView>
 
 </template>
 
 <style scoped>
-.content{
-  margin-top: 100px;
-}
 </style>
