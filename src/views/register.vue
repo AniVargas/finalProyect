@@ -80,7 +80,7 @@ button{
     background-color: #491d88;
     padding-bottom: 10px;
     color: black;
-    border: none;
+    border: 3px solid black;
     border-radius: 10px;
     width: 130px;
     font-family: monospace;
@@ -92,6 +92,7 @@ button:hover{
     width: 135px;
     font-size: 20px;
     background-color:#6b499b;
+    border: 3px solid black;
 }
 section{
   width: 100%;
@@ -125,7 +126,7 @@ section{
 }
 }
 .pink{
-  border:5px solid black;
+  border:3px solid black;
   background-color: #fa448c;
   font-family: monospace;
   text-align: center;

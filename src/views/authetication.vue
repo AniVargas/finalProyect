@@ -64,11 +64,13 @@ button{
     font-weight: bold;
     font-size: 18px;
     padding: 10wv;
+    border: 3px solid black;
 }
 button:hover{
     width: 135px;
     font-size: 20px;
     background-color:#6b499b;
+    border: 3px solid black;
 }
 
 section{
@@ -102,7 +104,7 @@ section{
 }
 }
 .pink{
-  border:5px solid black;
+  border:3px solid black;
   background-color: #fa448c;
   font-family: monospace;
   text-align: center;

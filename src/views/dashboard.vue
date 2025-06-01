@@ -17,6 +17,9 @@ const status = ref('todo')
 const editingTaskId = ref(null)
 const noShow = ref ('noShow')
 const noShowEdit = ref ('noShow')
+const showDoing = ref ('noShowDoing')
+const showToDo = ref ('noShowToDo')
+const showDone = ref ('noShowDone')
 const newTitulo = ref ('')
 const newDescripcion = ref ('')
 const newDueDate = ref ('')
@@ -80,6 +83,29 @@ const toggleShow =()=>{
         noShow.value ='noShow'
     }
 }
+const toogleShowDoing =()=>{
+    if (showDoing.value === 'noShowDoing'){
+        showDoing.value = ''
+    } else {
+        showDoing.value ='noShowDoing'
+    }
+}
+const toogleShowDone =()=>{
+    if (showDone.value === 'noShowDone'){
+        showDone.value = ''
+    } else {
+        showDone.value ='noShowDone'
+    }
+}
+const toogleShowToDo =()=>{
+    if (showToDo.value === 'noShowToDo'){
+        showToDo.value = ''
+    } else {
+        showToDo.value ='noShowToDo'
+    }
+}
+
+
 const toggleEdit = async (task) =>{
     if (noShowEdit.value === 'noShowEdit'){
         noShowEdit.value = ''
@@ -96,7 +122,7 @@ const toggleEdit = async (task) =>{
 </script>
 
 <template>
-
+<main>
     <section :class="noShow">
         <div class="transparente">
           <div class="insert">  
@@ -109,8 +135,7 @@ const toggleEdit = async (task) =>{
             </form> 
            </div>
         </div>
-    </section>        
-
+    </section>            
     <section :class="noShowEdit">
         <div class="transparente">
             <div class="insert">
@@ -125,18 +150,17 @@ const toggleEdit = async (task) =>{
             </div>
         </div>
     </section>        
-
     
     <button @click="toggleShow" class="add"> + </button>  
-    <main>
+    
     <article>  
         <section class="lista">
-            <h3>To do</h3>
-            <li v-for="task in tasks.filter(t=>t.status==='todo')" :key="task.id">
+            <h3>To do <button @click.prevent="toogleShowToDo">-</button> </h3>
+            <li v-for="task in tasks.filter(t=>t.status==='todo')" :key="task.id":class="showToDo">
                 <div v-if="user" class="tareas">
                     <h4>{{ task.titulo }}</h4>
                     <p>{{ task.descripcion }}</p>
-                    <p :class="{ deadline: task.dueDate === hoy }">{{task.dueDate}}</p>
+                    <p :class="{ deadline: task.dueDate <= hoy }">{{task.dueDate}}</p>
                     <form>
                         <select v-model="task.status" @change="e => changeStatus(task.id, e.target.value)">
                             <option value="todo">To do</option>
@@ -150,12 +174,12 @@ const toggleEdit = async (task) =>{
             </li>
         </section>
         <section class="lista">
-            <h3>Doing</h3>
-            <li v-for="task in tasks.filter(t=>t.status==='doing')" :key="task.id">
-                <div v-if="user" class="tareas">
+            <h3>Doing <button class="botonMostrarTasks" @click.prevent="toogleShowDoing">-</button> </h3>
+            <li v-for="task in tasks.filter(t=>t.status==='doing')" :key="task.id" :class="showDoing">
+                <div  v-if="user" class="tareas">
                     <h4>{{ task.titulo }}</h4>
                     <p>{{ task.descripcion }}</p>
-                    <p :class="{ deadline: task.dueDate === hoy }">{{task.dueDate}}</p>
+                    <p :class="{ deadline: task.dueDate <= hoy }">{{task.dueDate}}</p>
                     <form>
                         <select v-model="task.status" @change="e => changeStatus(task.id, e.target.value)">
                             <option value="todo">To do</option>
@@ -169,12 +193,12 @@ const toggleEdit = async (task) =>{
             </li>
         </section>
         <section class="lista">
-            <h3>Done</h3>
-            <li class="done" v-for="task in tasks.filter(t=>t.status==='done')" :key="task.id">
+            <h3>Done <button @click.prevent="toogleShowDone">-</button> </h3>
+            <li class="done" v-for="task in tasks.filter(t=>t.status==='done')" :key="task.id" :class="showDone">
                 <div v-if="user" class="tareas">
                     <h4>{{ task.titulo }}</h4>
                     <p>{{ task.descripcion }}</p>
-                    <p :class="{ deadline: task.dueDate === hoy }">{{task.dueDate}}</p>
+                    <p>{{task.dueDate}}</p>
                     <form>
                         <select v-model="task.status" @change="e => changeStatus(task.id, e.target.value)">
                             <option value="todo">To do</option>
@@ -193,7 +217,10 @@ const toggleEdit = async (task) =>{
 </template>
 
 <style>
-
+@media (max-width: 1450px){
+main{
+    margin-top: 40px;
+}
 article{
     width: 90vw;
     display: flex;
@@ -204,7 +231,6 @@ article{
 li{
     list-style: none;
 }
-
 .noShow {
     display: none;
 }
@@ -216,12 +242,15 @@ li{
     border-radius: 10px;
     h3{
         margin-top: 0;
-        border: 5px solid black;
+        border: 3px solid black;
         font-size: 30px;
         font-family: monospace;
         text-align: center;
         background-color:#fa448c;
         color: white ;
+        button{
+            display: none;
+        }
     }
     .tareas{
         justify-self: center;
@@ -247,7 +276,6 @@ li{
         }
     }
 }
-
 .done{
     text-decoration: line-through;
     color: rgb(80, 77, 77);
@@ -266,6 +294,8 @@ li{
     font-size: 50px;
     color: black;
     position: fixed;
+    top: 70vh;
+    right: 10px;
 }
 .add:hover{
     background-color: #ffac06;
@@ -303,8 +333,56 @@ li{
     }
 }
 .deadline{
-    color: red  ;
+    color: rgb(255, 0, 0)  ;
+}
+}
+@media (max-width: 770px){
+    .add{
+    position: fixed;
+    left: 10px;
+    top: 90vh;
+    }
 }
 
+@media (max-width: 770px){
+ main{
+    margin-top: 10px;
+ }
+
+ article{
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+}
+.lista{
+    width: 90vw;
+    border-radius: 10px;
+    h3{
+        margin-top: 0;
+        border: 3px solid black;
+        font-size: 25px;
+        font-family: monospace;
+        text-align: center;
+        background-color:#fa448c;
+        color: white ;
+        button{
+            display: block;
+        }
+    }
+}
+
+section{
+    margin-bottom: 20px;
+}
+.noShowToDo{
+    display: none;
+}
+.noShowDoing{
+    display: none;
+}
+.noShowDone{
+    display: none;
+}
+}
 
 </style>
