@@ -348,8 +348,10 @@ li{
  }
 
  .add{
-    top: 1vw;
-    right: 1vw;
+    width: 70px;
+    height: 70px;    
+    top: 80vw;
+    left: 80vw;
  }
 
  article{
