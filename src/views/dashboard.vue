@@ -263,6 +263,8 @@ li{
             border-radius: 5px;
             width: 30px;
             margin: 2px;
+            position: relative;
+            padding-right: 5px;
         }
         button:hover{
             background-color:#491d88;
@@ -402,4 +404,132 @@ section{
 }
 }
 
+@media (min-width: 1450px){
+    main{
+        width: 1450px;
+        justify-self: center;
+    }
+article{
+    width: 1400px;
+    padding: auto 0;
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+    font-family: monospace;
+}
+li{
+    list-style: none;
+}
+.noShow {
+    display: none;
+}
+.noShowEdit {
+    display: none;
+}
+.lista{
+    width: 25%;
+    border-radius: 10px;
+    h3{
+        margin-top: 0;
+        border: 3px solid black;
+        font-size: 30px;
+        font-family: monospace;
+        text-align: center;
+        background-color:#fa448c;
+        color: white ;
+        button{
+            display: none;
+        }
+    }
+    .tareas{
+        justify-self: center;
+        background-color:#331a380f;
+        width: 90%;
+        border-radius: 5px;
+        button{
+            color: white;
+            border: none;
+            height: 30px;
+            border-radius: 5px;
+            width: 30px;
+            margin: 2px;
+        }
+        button:hover{
+            background-color:#491d88;
+        }
+        select{
+            border: 2px solid black;
+            font-family: monospace; 
+        }
+    }
+}
+.done{
+    text-decoration: line-through;
+    color: rgb(80, 77, 77);
+        select{
+            color: rgb(80, 77, 77);
+        }
+}
+.add{
+    margin-top: 50px;
+    width: 70px;
+    height: 70px;
+    border-radius: 100px;
+    border: none;
+    background-color: #fec859;
+    border: 5px solid black;
+    font-size: 50px;
+    color: black;
+    position: fixed;
+    top: 70vh;
+    right: 10px;
+}
+.add:hover{
+    background-color: #ffac06;
+}
+
+.transparente{
+    width: 100%;
+    height: 100vh;
+    background-color: #ffffff4f;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    .insert{
+        margin-top: 100px;
+        width: 300px;
+        height: 250px;
+        background-color: white;
+        border: 5px solid black;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        font-family: monospace;
+        button{
+            font-family: monospace;
+            color: white;
+            background-color: #491d88;
+            border: none;
+            height: 30px;
+            border-radius: 10px;
+            width: 80px;
+        }  
+        .close{
+            border: none;
+            background-color: #00000000;
+            color: black;
+            align-self: flex-end;
+            width: 30px;
+        }
+   
+    }
+
+
+}
+.deadline{
+    color: rgb(255, 0, 0)  ;
+}
+
+}
 </style>
