@@ -254,7 +254,7 @@ li{
     }
     .tareas{
         justify-self: center;
-        background-color:#dec1e4;
+        background-color:#c3bac5;
         width: 90%;
         border-radius: 5px;
         button{
@@ -371,6 +371,9 @@ li{
 .lista{
     width: 90vw;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
     h3{
         margin-top: 0;
         border: 3px solid black;
