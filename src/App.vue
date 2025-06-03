@@ -1,8 +1,6 @@
 <script setup>
 import {useUserStore} from '@/stores/user'
-import {ref} from 'vue' 
 import {storeToRefs} from 'pinia'
-import { useRouter } from 'vue-router'
 import navbar from '@/components/navbar.vue'
 
 const userStore = useUserStore()

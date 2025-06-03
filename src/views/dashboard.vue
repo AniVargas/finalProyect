@@ -10,6 +10,8 @@ const toDoListStore= usetoDoList()
 const {user} = storeToRefs(userStore)
 const {tasks} = storeToRefs(toDoListStore)
 
+
+//variables
 const titulo = ref ('')
 const descripcion = ref ('')
 const dueDate = ref (null)
@@ -104,8 +106,6 @@ const toogleShowToDo =()=>{
         showToDo.value ='noShowToDo'
     }
 }
-
-
 const toggleEdit = async (task) =>{
     if (noShowEdit.value === 'noShowEdit'){
         noShowEdit.value = ''
@@ -117,7 +117,6 @@ const toggleEdit = async (task) =>{
         noShowEdit.value ='noShowEdit'
     }
 }
-
 
 </script>
 
@@ -345,20 +344,20 @@ li{
 @media (max-width: 770px){
     .add{
     position: fixed;
-    left: 10px;
-    top: 90vh;
+    right: 10px;
+    top: 80vh;
     }
 }
 
-@media (max-width: 600px){
+@media (max-width: 450px){
  main{
     margin-top: 20px;
  }
 
  .add{
-    width: 70px;
-    height: 70px;    
-    top: 80vw;
+    width: 10vh;
+    height: 10vh;    
+    top: 80vh;
     left: 80vw;
  }
 

@@ -1,11 +1,21 @@
 <script setup>
 import {useUserStore} from '@/stores/user'
-import {ref} from 'vue' 
 import {storeToRefs} from 'pinia'
 import { useRouter } from 'vue-router'
 
 const userStore = useUserStore()
 const {user} = storeToRefs(userStore)
+const router = useRouter()
+
+const handleLogout = async ()=> {
+  try{ 
+    await userStore.logout()
+    router.push('/')
+  }
+  catch(err) {
+    console.log (err)
+  }
+}
 
 </script>
 
@@ -15,8 +25,8 @@ const {user} = storeToRefs(userStore)
       <p class="pc"> Hello {{ user.email }}! </p>
       <p class="movil"> Hi {{ user.email }}! </p>
       <div>
-      <button class="pc" @click="userStore.logout" type="button">Log out 👋</button>
-      <button class="movil" @click="userStore.logout" type="button">Log out</button>
+      <button class="pc" @click="handleLogout" type="button">Log out 👋</button>
+      <button class="movil" @click="handleLogout" type="button">Log out</button>
       </div>
   </nav>
   <nav v-else>
