@@ -1,11 +1,21 @@
 <script setup>
 import {useUserStore} from '@/stores/user'
-import {ref} from 'vue' 
 import {storeToRefs} from 'pinia'
 import { useRouter } from 'vue-router'
 
 const userStore = useUserStore()
 const {user} = storeToRefs(userStore)
+const router = useRouter()
+
+const handleLogout = async ()=> {
+  try{ 
+    await userStore.logout()
+    router.push('/')
+  }
+  catch(err) {
+    console.log (err)
+  }
+}
 
 </script>
 
@@ -15,8 +25,8 @@ const {user} = storeToRefs(userStore)
       <p class="pc"> Hello {{ user.email }}! </p>
       <p class="movil"> Hi {{ user.email }}! </p>
       <div>
-      <button class="pc" @click="userStore.logout" type="button">Log out 👋</button>
-      <button class="movil" @click="userStore.logout" type="button">Log out</button>
+      <button class="pc" @click="handleLogout" type="button">Log out 👋</button>
+      <button class="movil" @click="handleLogout" type="button">Log out</button>
       </div>
   </nav>
   <nav v-else>
@@ -36,6 +46,7 @@ const {user} = storeToRefs(userStore)
   nav{
     display: flex;
     justify-content:space-between;
+    align-content: center;
     border-bottom:5px solid black;
     color: black;
     font-family: monospace;
@@ -71,7 +82,7 @@ const {user} = storeToRefs(userStore)
    button{
     display: flex;
     background-color: #43b5a0;
-    margin: 3px;
+    padding: 3px;
     width: 130px;
     border: 3px solid black;
     border-radius: 10px;
@@ -79,6 +90,7 @@ const {user} = storeToRefs(userStore)
     font-weight: bold;
     font-size: 18px;
     text-align: center;
+    color: black;
   }
   button:hover{
     width: 135px;
@@ -86,7 +98,7 @@ const {user} = storeToRefs(userStore)
     background-color: #84d1c2;
   }
 }
-@media (max-width: 700px){
+@media (max-width: 600px){
   nav{
     font-size: 16px;
   }

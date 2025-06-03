@@ -82,7 +82,6 @@ button{
     color: black;
     border: 3px solid black;
     border-radius: 10px;
-    width: 130px;
     font-family: monospace;
     font-weight: bold;
     font-size: 18px;
