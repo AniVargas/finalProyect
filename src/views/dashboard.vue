@@ -254,7 +254,7 @@ li{
     }
     .tareas{
         justify-self: center;
-        background-color:#331a380f;
+        background-color:#dec1e4;
         width: 90%;
         border-radius: 5px;
         button{
