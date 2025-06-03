@@ -3,6 +3,7 @@ import {useUserStore} from '@/stores/user'
 import {ref, onMounted, watch} from 'vue' 
 import {storeToRefs} from 'pinia'
 import {usetoDoList} from '@/stores/toDoList'
+import router from '@/router'
 
 const userStore = useUserStore()
 const toDoListStore= usetoDoList()
@@ -263,7 +264,6 @@ li{
             border-radius: 5px;
             width: 30px;
             margin: 2px;
-            position: relative;
             padding-right: 5px;
         }
         button:hover{
