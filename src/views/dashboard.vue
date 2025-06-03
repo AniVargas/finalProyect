@@ -332,7 +332,6 @@ li{
             color: black;
             align-self: flex-end;
             width: 30px;
-
         }
    
     }
@@ -351,13 +350,13 @@ li{
     }
 }
 
-@media (max-width: 770px){
+@media (max-width: 600px){
  main{
     margin-top: 20px;
  }
 
  .add{
-    width: 50px;
+    width: 70px;
     height: 70px;    
     top: 80vw;
     left: 80vw;
