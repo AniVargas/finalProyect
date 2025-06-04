@@ -309,7 +309,7 @@ li{
     justify-content: center;
     align-content: center;
     .insert{
-        margin-top: 65px;
+        margin-top: 10vh;
         width: 300px;
         height: 250px;
         background-color: white;
@@ -346,15 +346,22 @@ li{
 @media (max-width: 770px){
     .add{
     position: fixed;
-    right: 10px;
+    right: 10vw;
     top: 80vh;
     }
+    .insert{
+    margin-top: 10vh;
+    }
+
 }
 
 @media (max-width: 450px){
  main{
     margin-top: 20px;
  }
+.insert{
+    margin-top: 10vh;
+}
 
  .add{
     width: 10vh;
@@ -411,7 +418,7 @@ section{
 }
 }
 
-@media (min-width: 1450px){
+@media (min-width: 1440px){
     main{
         width: 1450px;
         justify-self: center;
