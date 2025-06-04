@@ -309,7 +309,7 @@ li{
     justify-content: center;
     align-content: center;
     .insert{
-        margin-top: 100px;
+        margin-top: 65px;
         width: 300px;
         height: 250px;
         background-color: white;
