@@ -359,8 +359,8 @@ li{
  .add{
     width: 10vh;
     height: 10vh;    
-    top: 80vh;
-    left: 80vw;
+    top: 70vh;
+    right: 10vw;
  }
 
  article{
