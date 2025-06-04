@@ -392,6 +392,9 @@ li{
             justify-self: end;
         }
     }
+    .tareas{
+        justify-self: center;
+    }
 }
 
 section{
