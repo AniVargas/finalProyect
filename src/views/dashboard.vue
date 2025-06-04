@@ -254,7 +254,7 @@ li{
     }
     .tareas{
         justify-self: center;
-        background-color:#c3bac5;
+        background-color:#331a380f;
         width: 90%;
         border-radius: 5px;
         button{
@@ -309,7 +309,7 @@ li{
     justify-content: center;
     align-content: center;
     .insert{
-        margin-top: 100px;
+        margin-top: 65px;
         width: 300px;
         height: 250px;
         background-color: white;
@@ -374,6 +374,7 @@ li{
     display: flex;
     flex-direction: column;
     align-content: center;
+    justify-content: center;
     h3{
         margin-top: 0;
         border: 3px solid black;
