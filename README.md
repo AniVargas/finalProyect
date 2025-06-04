@@ -1,29 +1,69 @@
-# finalProyect
+# Work in progress
 
-This template should help get you started developing with Vue 3 in Vite.
+Work in progres es una aplicacion que te permite ordenar tu flujo de trabajo en el día a día llevando un control del gestion de tus tareas. La aplicacion te permite agregar tareas por hacer, poner fecha limite a tus tareas (para tener un recordatorio visual de la fecha de entrega) y clasificar tus tareas en: por hacer, haciendo y hecho. 
 
-## Recommended IDE Setup
+## Setup usado en el proyecto 
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+[VSCode](https://code.visualstudio.com/) 
+- Vue
+- Pinia
+- Vue Router
+- Supabase
 
-## Customize configuration
+## Comenzando a usar el proyecto 🚀
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+- Haz fork al repo
+- Clona el repo
 
-## Project Setup
+   ```bash
+  $ cd finalProyect
+  $ npm install
+  $ npm run dev --- para visualuzar tu proyecto
+  ```
 
-```sh
-npm install
-```
+## Estuctura del proyecto 🏗️
 
-### Compile and Hot-Reload for Development
+El proyecto actual consta de 3 rutas: LogIn, SignIn y Dashboard/ToDo + un component: navbar. 
+Los estilos estan definidos internamente en cada fichero
 
-```sh
-npm run dev
-```
+El estado global se maneja con pinia, haciendo usos de dos stores: user y toDoList 
 
-### Compile and Minify for Production
+  User store define las funciones: 
+  - fetchUser
+  - singUp
+  - logIn
+  - logout
 
-```sh
-npm run build
-```
+  toDolist store defiene las funciones: 
+  - tasks
+  - createTask
+  - fetchTasks
+  - changeStatus
+  - delTask
+  - modifyTask
+
+Las stores hacen un llamado a la api de supabase definidas en los ficheros /src/api/supabase/ [index][taskApi] 
+
+## Posibilidades de desarrollo sugeridas 👩‍💻
+
+Authentication: 
+- SignUp with: (gmail, etc).
+- Mejorar mensajes de error para hacerlos más especificos.
+
+Dashboard: 
+- Tener mas de una to Do list
+- Crear mensajes de felicistaciones al pasar una tarea a done
+- Hace un contador de tareas en cada lista de tareas
+- Poner filtro y ordenación a las task
+
+Código: 
+- Crear un css global
+- Refactorizar para optimizar el código  
+
+
+
+---
+⌨️ con ❤️ por [Ana Vargas ](https://github.com/AniVargas) 😊
+
+
+
