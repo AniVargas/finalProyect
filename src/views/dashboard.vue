@@ -347,7 +347,7 @@ li{
     .add{
     position: fixed;
     right: 10vw;
-    top: 80vh;
+    top: 70vh;
     }
     .insert{
     margin-top: 10vh;
@@ -400,7 +400,7 @@ li{
         }
     }
     .tareas{
-        justify-self: center;
+        align-self: center;
     }
 }
 
